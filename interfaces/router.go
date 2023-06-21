@@ -1,8 +1,8 @@
-package router
+package interfaces
 
 import "github.com/gin-gonic/gin"
 
-// HttpRouterInterface .
+// HttpRouterInterface 路由公共接口
 type HttpRouterInterface interface {
 	// RegisterRouterPublic 注册外部API
 	RegisterRouterPublic(engine *gin.RouterGroup)

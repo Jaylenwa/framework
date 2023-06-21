@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"framework/domain/service"
 	"framework/infra/utils/validate"
+	"framework/interfaces"
 	"framework/interfaces/handler/dto"
-	"framework/interfaces/router"
 	"framework/port/driver"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -19,10 +19,10 @@ type userHttpHandler struct {
 
 var (
 	httpUserOnce sync.Once
-	httpUserHand router.HttpRouterInterface
+	httpUserHand interfaces.HttpRouterInterface
 )
 
-func NewHttpUserHandler() router.HttpRouterInterface {
+func NewHttpUserHandler() interfaces.HttpRouterInterface {
 	httpUserOnce.Do(func() {
 		httpUserHand = &userHttpHandler{
 			userService: service.NewUserService(),
