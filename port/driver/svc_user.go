@@ -7,9 +7,9 @@ import (
 
 // go:generate mockgen -source=./svc_user.go -destination ./mock/svc_user.go -package mock
 type UserService interface {
-	GetUserById(ctx context.Context, id uint64) (res dto.GetUserByIdRsp, err error)
-	GetUserList(ctx context.Context, filter map[string]interface{}, args ...interface{}) (total int64, res []dto.GetUserListRsp, err error)
-	AddUser(ctx context.Context, req dto.AddUserReq) (id uint64, err error)
-	UpdateUser(ctx context.Context, id uint64, req dto.UpdateUserReq) (err error)
-	DelUser(ctx context.Context, id uint64) (err error)
+	FindUserById(ctx context.Context, id int64) (res dto.GetUserByIdRsp, err error)
+	FindUserList(ctx context.Context, filter map[string]interface{}, args ...interface{}) (total int64, res []dto.GetUserListRsp, err error)
+	CreateUser(ctx context.Context, req dto.CreateUserReq) (id int64, err error)
+	UpdateUser(ctx context.Context, id int64, req dto.UpdateUserReq) (err error)
+	DelUser(ctx context.Context, id int64) (err error)
 }

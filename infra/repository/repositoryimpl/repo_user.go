@@ -30,7 +30,7 @@ func NewUserRepo() driven.UserRepo {
 	return userRepoImpl
 }
 
-func (repo *userRepo) FindById(ctx context.Context, id uint64) (user po.User, err error) {
+func (repo *userRepo) FindById(ctx context.Context, id int64) (user po.User, err error) {
 	tx := repo.db.WithContext(ctx)
 
 	err = tx.Where("id = ?", id).First(&user).Error
@@ -78,7 +78,7 @@ func (repo *userRepo) FindList(ctx context.Context, filter map[string]interface{
 	return
 }
 
-func (repo *userRepo) Insert(ctx context.Context, user po.User) (id uint64, err error) {
+func (repo *userRepo) Insert(ctx context.Context, user po.User) (id int64, err error) {
 	tx := repo.db.WithContext(ctx)
 
 	err = tx.Create(&user).Error
@@ -90,14 +90,14 @@ func (repo *userRepo) Insert(ctx context.Context, user po.User) (id uint64, err 
 	return
 }
 
-func (repo *userRepo) Update(ctx context.Context, id uint64, user po.User) (err error) {
+func (repo *userRepo) Update(ctx context.Context, id int64, user po.User) (err error) {
 	tx := repo.db.WithContext(ctx)
 
 	err = tx.Model(&po.User{}).Where("id = ?", id).Updates(&user).Error
 	return
 }
 
-func (repo *userRepo) Delete(ctx context.Context, id uint64) (err error) {
+func (repo *userRepo) Delete(ctx context.Context, id int64) (err error) {
 	tx := repo.db.WithContext(ctx)
 
 	err = tx.Where("id = ?", id).Delete(&po.User{}).Error

@@ -33,7 +33,7 @@ func NewUserService() driver.UserService {
 
 }
 
-func (svc *userService) GetUserById(ctx context.Context, id uint64) (res dto.GetUserByIdRsp, err error) {
+func (svc *userService) FindUserById(ctx context.Context, id int64) (res dto.GetUserByIdRsp, err error) {
 	userPo, err := svc.userRepo.FindById(ctx, id)
 	if err != nil {
 		return
@@ -45,7 +45,7 @@ func (svc *userService) GetUserById(ctx context.Context, id uint64) (res dto.Get
 	return
 }
 
-func (svc *userService) GetUserByQuery(ctx context.Context, queries []*query.Query) (res dto.GetUserByQueryRsp, err error) {
+func (svc *userService) FindUserByQuery(ctx context.Context, queries []*query.Query) (res dto.GetUserByQueryRsp, err error) {
 	userPo, err := svc.userRepo.FindByQuery(ctx, queries)
 
 	// PO_to_DO
@@ -54,7 +54,7 @@ func (svc *userService) GetUserByQuery(ctx context.Context, queries []*query.Que
 	return
 }
 
-func (svc *userService) GetUserList(ctx context.Context, filter map[string]interface{}, args ...interface{}) (total int64, res []dto.GetUserListRsp, err error) {
+func (svc *userService) FindUserList(ctx context.Context, filter map[string]interface{}, args ...interface{}) (total int64, res []dto.GetUserListRsp, err error) {
 	total, userList, err := svc.userRepo.FindList(ctx, filter, args...)
 
 	// POs_to_DOs
@@ -74,7 +74,7 @@ func (svc *userService) GetUserList(ctx context.Context, filter map[string]inter
 	return
 }
 
-func (svc *userService) AddUser(ctx context.Context, req dto.AddUserReq) (id uint64, err error) {
+func (svc *userService) CreateUser(ctx context.Context, req dto.CreateUserReq) (id int64, err error) {
 
 	var userPo po.User
 	// DO_to_PO
@@ -88,7 +88,7 @@ func (svc *userService) AddUser(ctx context.Context, req dto.AddUserReq) (id uin
 	return
 }
 
-func (svc *userService) UpdateUser(ctx context.Context, id uint64, req dto.UpdateUserReq) (err error) {
+func (svc *userService) UpdateUser(ctx context.Context, id int64, req dto.UpdateUserReq) (err error) {
 
 	var userPo po.User
 	// DO_to_PO
@@ -102,7 +102,7 @@ func (svc *userService) UpdateUser(ctx context.Context, id uint64, req dto.Updat
 	return
 }
 
-func (svc *userService) DelUser(ctx context.Context, id uint64) (err error) {
+func (svc *userService) DelUser(ctx context.Context, id int64) (err error) {
 	err = svc.userRepo.Delete(ctx, id)
 
 	return

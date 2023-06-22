@@ -33,31 +33,27 @@ func NewHttpUserHandler() interfaces.HttpRouterInterface {
 
 // RegisterRouterPublic 注册外部API
 func (h *userHttpHandler) RegisterRouterPublic(router *gin.RouterGroup) {
-	router.GET("/user/:id", h.getUserById) // 查询UserById
-	router.GET("/user", h.getUserList)     // 查询User列表
-	router.POST("/user", h.addUser)        // 创建User
-	router.PUT("/user/:id", h.updateUser)  // 修改User
-	router.DELETE("/user/:id", h.delUser)  // 删除User
+	router.GET("/user/:id", h.createUserById) // 查询UserById
+	router.GET("/user", h.findUserList)       // 查询User列表
+	router.POST("/user", h.createUser)        // 创建User
+	router.PUT("/user/:id", h.updateUser)     // 修改User
+	router.DELETE("/user/:id", h.delUser)     // 删除User
 }
 
 // RegisterRouterPrivate 注册内部API
 func (h *userHttpHandler) RegisterRouterPrivate(router *gin.RouterGroup) {
 }
 
-func (h *userHttpHandler) getUserById(c *gin.Context) {
+func (h *userHttpHandler) createUserById(c *gin.Context) {
 
-	type reqPath struct {
-		Id uint64 `validate:"required" uri:"id" json:"id"`
-	}
-
-	var req reqPath
+	var req dto.FindUserByIdReq
 
 	if err := c.ShouldBindUri(&req); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 
-	res, err := h.userService.GetUserById(c, req.Id)
+	res, err := h.userService.FindUserById(c, req.Id)
 	if err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return
@@ -66,7 +62,7 @@ func (h *userHttpHandler) getUserById(c *gin.Context) {
 
 }
 
-func (h *userHttpHandler) getUserList(c *gin.Context) {
+func (h *userHttpHandler) findUserList(c *gin.Context) {
 
 	var reqForm dto.GetUserListReq
 
@@ -94,7 +90,7 @@ func (h *userHttpHandler) getUserList(c *gin.Context) {
 		return
 	}
 
-	total, res, err := h.userService.GetUserList(c, filter)
+	total, res, err := h.userService.FindUserList(c, filter)
 	if err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return
@@ -107,9 +103,9 @@ func (h *userHttpHandler) getUserList(c *gin.Context) {
 
 }
 
-func (h *userHttpHandler) addUser(c *gin.Context) {
+func (h *userHttpHandler) createUser(c *gin.Context) {
 
-	var req dto.AddUserReq
+	var req dto.CreateUserReq
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, err)
@@ -122,7 +118,7 @@ func (h *userHttpHandler) addUser(c *gin.Context) {
 		return
 	}
 
-	id, err := h.userService.AddUser(c, req)
+	id, err := h.userService.CreateUser(c, req)
 	if err != nil {
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
@@ -136,11 +132,7 @@ func (h *userHttpHandler) addUser(c *gin.Context) {
 
 func (h *userHttpHandler) updateUser(c *gin.Context) {
 
-	type reqPath struct {
-		Id uint64 `validate:"required" uri:"id" json:"id"`
-	}
-
-	var reqUri reqPath
+	var reqUri dto.UpdateUserByIdReq
 
 	var req dto.UpdateUserReq
 
@@ -171,11 +163,7 @@ func (h *userHttpHandler) updateUser(c *gin.Context) {
 
 func (h *userHttpHandler) delUser(c *gin.Context) {
 
-	type reqPath struct {
-		Id uint64 `validate:"required" uri:"id" json:"id"`
-	}
-
-	var req reqPath
+	var req dto.DelUsersReq
 
 	if err := c.ShouldBindUri(&req); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, err)
