@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"framework/adapter/driver"
+	adapterDriver "framework/adapter/driver"
 	_ "framework/boot"
 	"framework/global"
 	"framework/infra/middleware"
@@ -10,7 +10,7 @@ import (
 )
 
 type Server struct {
-	httpUserHandler driver.HttpRouterInterface
+	httpUserHandler adapterDriver.HttpRouterInterface
 }
 
 func (s *Server) Start() {
@@ -28,7 +28,7 @@ func (s *Server) Start() {
 func main() {
 
 	s := &Server{
-		httpUserHandler: driver.NewHttpUserHandler(),
+		httpUserHandler: adapterDriver.NewHttpUserHandler(),
 	}
 	s.Start()
 

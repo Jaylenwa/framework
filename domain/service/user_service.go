@@ -7,26 +7,26 @@ import (
 	"framework/infra/po"
 	"framework/infra/utils/query"
 	"framework/infra/utils/struct"
-	"framework/port/driven"
-	"framework/port/driver"
+	portDriven "framework/port/driven"
+	portDriver "framework/port/driver"
 	"sync"
 )
 
 var (
 	userServiceOnce sync.Once
-	userServiceImpl driver.UserService
+	userServiceImpl portDriver.UserService
 )
 
 type userService struct {
-	userRepo driven.UserRepo
+	userRepo portDriven.UserRepo
 }
 
-var _ driver.UserService = &userService{}
+var _ portDriver.UserService = &userService{}
 
-func NewUserService() driver.UserService {
+func NewUserService() portDriver.UserService {
 	userServiceOnce.Do(func() {
 		userServiceImpl = &userService{
-			userRepo: repositoryimpl.NewUserRepo(),
+			userRepo: adapterDriven.NewUserRepo(),
 		}
 	})
 	return userServiceImpl

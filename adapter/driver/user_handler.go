@@ -1,4 +1,4 @@
-package driver
+package adapterDriver
 
 import (
 	"encoding/json"
@@ -6,14 +6,14 @@ import (
 	"framework/adapter/driver/dto"
 	"framework/domain/service"
 	"framework/infra/utils/validate"
-	"framework/port/driver"
+	portDriver "framework/port/driver"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"sync"
 )
 
 type userHttpHandler struct {
-	userService driver.UserService
+	userService portDriver.UserService
 }
 
 var (

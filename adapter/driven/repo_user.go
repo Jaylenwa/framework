@@ -1,27 +1,27 @@
-package repositoryimpl
+package adapterDriven
 
 import (
 	"context"
 	"framework/global"
 	"framework/infra/po"
 	"framework/infra/utils/query"
-	"framework/port/driven"
+	portDriven "framework/port/driven"
 	"gorm.io/gorm"
 	"sync"
 )
 
 var (
 	userRepoOnce sync.Once
-	userRepoImpl driven.UserRepo
+	userRepoImpl portDriven.UserRepo
 )
 
 type userRepo struct {
 	db *gorm.DB
 }
 
-var _ driven.UserRepo = &userRepo{}
+var _ portDriven.UserRepo = &userRepo{}
 
-func NewUserRepo() driven.UserRepo {
+func NewUserRepo() portDriven.UserRepo {
 	userRepoOnce.Do(func() {
 		userRepoImpl = &userRepo{
 			db: global.GDB,
