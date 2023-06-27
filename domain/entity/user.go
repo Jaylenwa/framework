@@ -2,7 +2,7 @@ package entity
 
 import (
 	"context"
-	"framework/infra/repository/po"
+	"framework/infra/po"
 	"framework/infra/utils/struct"
 )
 

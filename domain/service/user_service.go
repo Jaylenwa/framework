@@ -2,11 +2,11 @@ package service
 
 import (
 	"context"
-	"framework/infra/repository/po"
-	"framework/infra/repository/repositoryimpl"
+	"framework/adapter/driven"
+	"framework/adapter/driver/dto"
+	"framework/infra/po"
 	"framework/infra/utils/query"
 	"framework/infra/utils/struct"
-	"framework/interfaces/handler/dto"
 	"framework/port/driven"
 	"framework/port/driver"
 	"sync"

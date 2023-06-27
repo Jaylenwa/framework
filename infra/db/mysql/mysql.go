@@ -3,7 +3,7 @@ package mysql
 import (
 	"fmt"
 	"framework/global"
-	"framework/infra/repository/po"
+	"framework/infra/po"
 	"log"
 	"time"
 

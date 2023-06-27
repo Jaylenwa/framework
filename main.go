@@ -2,16 +2,15 @@ package main
 
 import (
 	"fmt"
+	"framework/adapter/driver"
 	_ "framework/boot"
 	"framework/global"
-	"framework/interfaces"
-	"framework/interfaces/handler"
-	"framework/interfaces/middleware"
+	"framework/infra/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 type Server struct {
-	httpUserHandler interfaces.HttpRouterInterface
+	httpUserHandler driver.HttpRouterInterface
 }
 
 func (s *Server) Start() {
@@ -29,7 +28,7 @@ func (s *Server) Start() {
 func main() {
 
 	s := &Server{
-		httpUserHandler: handler.NewHttpUserHandler(),
+		httpUserHandler: driver.NewHttpUserHandler(),
 	}
 	s.Start()
 

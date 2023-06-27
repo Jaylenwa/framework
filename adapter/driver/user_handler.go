@@ -1,12 +1,11 @@
-package handler
+package driver
 
 import (
 	"encoding/json"
 	"fmt"
+	"framework/adapter/driver/dto"
 	"framework/domain/service"
 	"framework/infra/utils/validate"
-	"framework/interfaces"
-	"framework/interfaces/handler/dto"
 	"framework/port/driver"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -19,10 +18,10 @@ type userHttpHandler struct {
 
 var (
 	httpUserOnce sync.Once
-	httpUserHand interfaces.HttpRouterInterface
+	httpUserHand HttpRouterInterface
 )
 
-func NewHttpUserHandler() interfaces.HttpRouterInterface {
+func NewHttpUserHandler() HttpRouterInterface {
 	httpUserOnce.Do(func() {
 		httpUserHand = &userHttpHandler{
 			userService: service.NewUserService(),

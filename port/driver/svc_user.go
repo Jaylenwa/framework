@@ -2,7 +2,7 @@ package driver
 
 import (
 	"context"
-	"framework/interfaces/handler/dto"
+	"framework/adapter/driver/dto"
 )
 
 // go:generate mockgen -source=./svc_user.go -destination ./mock/svc_user.go -package mock

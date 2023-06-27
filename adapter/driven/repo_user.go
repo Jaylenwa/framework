@@ -3,7 +3,7 @@ package repositoryimpl
 import (
 	"context"
 	"framework/global"
-	"framework/infra/repository/po"
+	"framework/infra/po"
 	"framework/infra/utils/query"
 	"framework/port/driven"
 	"gorm.io/gorm"
